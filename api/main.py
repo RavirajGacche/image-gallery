@@ -4,6 +4,8 @@ import requests
 from dotenv import load_dotenv
 import sys
 
+DEBUG = bool(os.getenv('DEBUG', True))
+
 # UNSPLASH_KEY = "ZtRy9ZraRDsD4za42EAjAUkNleBxJJjF5Hje0gM4kr4"
 UNSPLASH_KEY = load_dotenv(dotenv_path='./.env.local')
 UNSPLASH_KEY = os.getenv('UNSPLASH_KEY')
@@ -14,8 +16,10 @@ UNSPLASH_URL = "https://api.unsplash.com/photos/random"
 if not UNSPLASH_KEY:
   raise EnvironmentError('Enviormental variable UNSPLASH_KEY is not present in the .env.local file')
 
-
 app = Flask(__name__)
+
+app.config['DEBUG'] = DEBUG
+
 
 @app.route('/new-images')
 def new_images():
